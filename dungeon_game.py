@@ -9,7 +9,7 @@ CELLS = [(0, 0), (1, 0), (2, 0), (3 , 0), (4, 0),
 ]
 
 def print_map(player):
-    print("_"*5)
+    print(" _"*5)
     tile = "|{}"
     for cell in CELLS:
         player_x, player_y = cell
@@ -51,7 +51,7 @@ def move_player(player, move):
         player_y += 1
         return (player_x, player_y)
     else:
-        print("Invalid player move")
+        print("*INVALID PLAYER MOVE*")
         return (player_x, player_y)
 
 
@@ -61,16 +61,26 @@ def clear_Screen():
 def get_moves(player):
     moves = ["LEFT", "UP", "RIGHT", "DOWN"]
     player_x, player_y = player
-    if player_y == 4:
+    if player_y == 0:
         moves.remove("UP")
-    elif player_y == 0:
+    elif player_y == 4:
         moves.remove("DOWN")
     elif player_x == 0:
         moves.remove("LEFT")
     elif player_x == 4:
         moves.remove("RIGHT")
-    else:
-        return moves
+    elif player_x == 4 and player_y == 0:
+        moves.remove("RIGHT")
+        moves.remove("UP")
+    elif player_x == 0 and player_y == 0:
+        moves.remove("LEFT")
+        moves.remove("UP")
+    elif player_x == 0 and player_y == 4:
+        moves.remove("LEFT")
+        moves.remove("DOWN")
+    elif player_x == 4 and player_y == 4:
+        moves.remove("RIGHT")
+        moves.remove("DOWN")
     return (", ").join(moves)
 
 player, monster, door = get_locations()
